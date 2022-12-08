@@ -654,13 +654,12 @@ ujson_ext = Extension(
 extensions.append(ujson_ext)
 
 # ----------------------------------------------------------------------
-
-
 if __name__ == "__main__":
-    # Freeze to support parallel compilation when using spawn instead of fork
-    multiprocessing.freeze_support()
-    setup(
-        version=versioneer.get_version(),
-        ext_modules=maybe_cythonize(extensions, compiler_directives=directives),
-        cmdclass=cmdclass,
-    )
+    # Freeze to support parallel compilation when using spawn instead of fork
+    multiprocessing.freeze_support()
+    setup(
+        version=versioneer.get_version(),
+        ext_modules=maybe_cythonize(extensions, compiler_directives=directives),
+        extensions=cythonize(extensions, compiler_directives={'language_level' : "3"}),
+        cmdclass=cmdclass,
+    )
